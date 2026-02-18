@@ -1,5 +1,5 @@
 context:
-  version: "1.19.2"
+  version: "1.20.0"
 
 package:
   name: yaml-language-server
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://registry.npmjs.org/yaml-language-server/-/yaml-language-server-${{ version }}.tgz
-  sha256: 1b2c10f1acb09a87551d54ad666b8f7e16023ceb5c7270489a67c206025614f1
+  sha256: 66ad2af1161c222729a7022efde8fc45a7b9aeabd3f6c5768d9c5f98a2664db1
 
 build:
   number: 0
