@@ -9,7 +9,7 @@ context:
   node_build: "22"
   # next LTS
   node_check_max: "26"
-  pytest: pytest -vv --tb=long --color=yes -p no:warnings
+  pytest: pytest -svv --tb=long --color=yes -p no:warnings
 
 package:
   name: yaml-language-server
