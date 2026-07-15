@@ -1,5 +1,9 @@
 context:
   version: "1.24.0"
+  node_min: "22"
+  node_check_max: "26"
+  basic_test:
+    yaml-language-server 2>&1 | grep -q 'Connection input stream is not set.'
 
 package:
   name: yaml-language-server
@@ -15,15 +19,23 @@ build:
 
 requirements:
   host:
-    - nodejs
+    - nodejs ${{ node_min }}.*
     - pnpm
     - pnpm-licenses
   run:
-    - nodejs
+    - nodejs >=${{ node_min }}
 
 tests:
-  - script:
-      - yaml-language-server 2>&1 | grep -q 'Connection input stream is not set.'
+  - requirements:
+      run:
+        - nodejs ${{ node_min }}.*
+    script:
+      - ${{ basic_test }}
+  - requirements:
+      run:
+        - nodejs ${{ node_check_max }}.*
+    script:
+      - ${{ basic_test }}
 
 about:
   license: MIT
