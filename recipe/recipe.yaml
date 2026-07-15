@@ -1,9 +1,12 @@
 context:
   version: "1.24.0"
-  node_min: "22"
+  # oldest EOL LTS, used upstream in .github/workflows/CI.yaml
+  node_min: "20"
+  # current LTS
+  node_build: "22"
+  # next LTS
   node_check_max: "26"
-  basic_test:
-    yaml-language-server 2>&1 | grep -q 'Connection input stream is not set.'
+  pytest: pytest -vv --tb=long --color=yes -p no:warnings
 
 package:
   name: yaml-language-server
@@ -19,23 +22,31 @@ build:
 
 requirements:
   host:
-    - nodejs ${{ node_min }}.*
+    - nodejs ${{ node_build }}.*
     - pnpm
     - pnpm-licenses
   run:
     - nodejs >=${{ node_min }}
 
 tests:
-  - requirements:
+  - files:
+      recipe:
+        - test_yls.py
+    requirements:
       run:
         - nodejs ${{ node_min }}.*
+        - pytest-lsp
     script:
-      - ${{ basic_test }}
-  - requirements:
+      - ${{ pytest }}
+  - files:
+      recipe:
+        - test_yls.py
+    requirements:
       run:
         - nodejs ${{ node_check_max }}.*
+        - pytest-lsp
     script:
-      - ${{ basic_test }}
+      - ${{ pytest }}
 
 about:
   license: MIT

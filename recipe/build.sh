@@ -7,6 +7,8 @@ npm pack --ignore-scripts
 npm install -ddd \
     --no-bin-links \
     --global \
+    --production \
+    --ignore-scripts \
     --build-from-source \
     ${PKG_NAME}-${PKG_VERSION}.tgz
 
