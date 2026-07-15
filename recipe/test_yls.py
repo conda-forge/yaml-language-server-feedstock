@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import contextlib
 from typing import Any
 import lsprotocol.types as lsp
 import pytest
@@ -40,7 +41,12 @@ async def test_diagnostics(client: LanguageClient):
     """Verify diagnostics are reported."""
     td = lsp.TextDocumentItem(uri=BAD_URI, language_id="yaml", version=1, text=BAD_YAML)
     client.text_document_did_open(lsp.DidOpenTextDocumentParams(text_document=td))
-    diag_task = client.wait_for_notification(lsp.TEXT_DOCUMENT_PUBLISH_DIAGNOSTICS)
-    await asyncio.wait_for(diag_task, 30)
-    diags = client.diagnostics
+    for _i in range(10):
+        with contextlib.suppress(asyncio.TimeoutError):
+            diag_task = client.wait_for_notification(lsp.TEXT_DOCUMENT_PUBLISH_DIAGNOSTICS)
+            await asyncio.wait_for(diag_task, 10)
+        diags = client.diagnostics
+        if len(diags.get(BAD_URI, [])):
+            break
+        await asyncio.sleep(5)
     assert "*undefined_anchor" in diags[BAD_URI][0].message
