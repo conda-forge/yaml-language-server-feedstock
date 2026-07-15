@@ -1,3 +1,6 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
 context:
   version: "1.24.0"
   # oldest EOL LTS, used upstream in .github/workflows/CI.yaml
