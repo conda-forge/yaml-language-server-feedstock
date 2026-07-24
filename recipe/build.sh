@@ -7,11 +7,13 @@ npm pack --ignore-scripts
 npm install -ddd \
     --no-bin-links \
     --global \
+    --production \
+    --ignore-scripts \
     --build-from-source \
     ${PKG_NAME}-${PKG_VERSION}.tgz
 
 # Create license report for dependencies
-pnpm install
+pnpm install --ignore-scripts
 pnpm-licenses generate-disclaimer --prod --output-file=third-party-licenses.txt
 
 mkdir -p ${PREFIX}/bin
