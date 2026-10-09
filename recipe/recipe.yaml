@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "1.24.0"
+  version: "1.25.0"
   # oldest EOL LTS, used upstream in .github/workflows/CI.yaml
   node_min: "20"
   # current LTS
@@ -17,7 +17,7 @@ package:
 
 source:
   url: https://registry.npmjs.org/yaml-language-server/-/yaml-language-server-${{ version }}.tgz
-  sha256: 11a321032012131f2ccdf7952dc347ce05291c66931a5de2f449b2dfc81f24b2
+  sha256: a240de3b47b3d658d47c6b71cdb9d9ea0eff00ca44b539bcbc5f3aafb87b36f8
 
 build:
   number: 0
